@@ -1,8 +1,8 @@
 package main
 
 import (
-	"converter/internal/converter"
-	"converter/internal/logging"
+	"baseconv/internal/converter"
+	"baseconv/internal/logging"
 	"flag"
 	"fmt"
 	"strconv"

@@ -1,7 +1,7 @@
 package main
 
 import (
-	"converter/cmd/converter/tui"
+	"baseconv/cmd/baseconv/tui"
 	"log"
 
 	tea "github.com/charmbracelet/bubbletea"

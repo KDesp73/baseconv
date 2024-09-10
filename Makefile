@@ -1,9 +1,9 @@
 all: tui cli
 
 tui:
-	go build ./cmd/converter
+	go build ./cmd/baseconv
 
 cli:
-	go build ./cmd/converter-cli
+	go build ./cmd/baseconv-cli
 
 .PHONY: all tui cli

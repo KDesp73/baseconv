@@ -1,7 +1,7 @@
 package tui
 
 import (
-	"converter/internal/converter"
+	"baseconv/internal/converter"
 	"strings"
 
 	"github.com/charmbracelet/bubbles/help"
