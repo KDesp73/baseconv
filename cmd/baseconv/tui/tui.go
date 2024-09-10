@@ -102,7 +102,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 func (m model) View() string {
 	var b strings.Builder
 
-	style := lipgloss.NewStyle().Padding(1).Width(20)
+	style := lipgloss.NewStyle().Padding(1).Width(25)
 
 	inputs := lipgloss.JoinVertical(lipgloss.Center,
 		lipgloss.JoinHorizontal(lipgloss.Left, style.Render(m.inputs[INPUT_DEC].View()), style.Render(m.inputs[INPUT_HEX].View())),
