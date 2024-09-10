@@ -1,4 +1,4 @@
 debug.log
-converter
-converter-cli
+baseconv
+baseconv-cli
 go.sum
