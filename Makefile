@@ -6,4 +6,8 @@ tui:
 cli:
 	go build ./cmd/baseconv-cli
 
-.PHONY: all tui cli
+clean:
+	rm baseconv
+	rm baseconv-cli
+
+.PHONY: all tui cli clean
