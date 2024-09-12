@@ -16,11 +16,11 @@ clean:
 	rm $(EXE)-cli
 
 install: all
-	sudo mv ./$(EXE) /usr/bin/$(EXE)
-	sudo mv ./$(EXE)-cli /usr/bin/$(EXE)-cli
+	sudo cp ./$(EXE) /usr/bin/$(EXE)
+	sudo cp ./$(EXE)-cli /usr/bin/$(EXE)-cli
 
 uninstall:
-	sudo rm ./$(EXE) /usr/bin/$(EXE)
-	sudo rm ./$(EXE)-cli /usr/bin/$(EXE)-cli
+	sudo rm /usr/bin/$(EXE)
+	sudo rm /usr/bin/$(EXE)-cli
 
 .PHONY: all download_pkgs tui cli clean install uninstall
