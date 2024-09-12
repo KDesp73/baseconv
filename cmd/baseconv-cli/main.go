@@ -46,7 +46,7 @@ func main() {
 	var char = false
 
 	flag.StringVar(&value, "value", value, "The value to convert")
-	flag.StringVar(&conv, "conv", conv, "The conversion {DEC | HEX | OCT | BIN}") 
+	flag.StringVar(&conv, "conv", conv, "The conversion {DEC | HEX | OCT | BIN | CHAR}") 
 	flag.BoolVar(&dec, "dec", dec, "Set the base of the value to decimal")
 	flag.BoolVar(&bin, "bin", bin, "Set the base of the value to binary")
 	flag.BoolVar(&oct, "oct", oct, "Set the base of the value to octal")
