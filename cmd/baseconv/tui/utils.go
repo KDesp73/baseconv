@@ -1,6 +1,7 @@
 package tui
 
 import (
+	"baseconv/internal/utils"
 	"fmt"
 	"os"
 	"strconv"
@@ -77,12 +78,18 @@ func (m *model) updateInputs(msg tea.Msg) tea.Cmd {
 		if err != nil {
 			m.value.Reset()
 		}
+	case INPUT_CHAR:
+		err := m.value.UpdateChar(m.inputs[INPUT_CHAR].Value())
+		if err != nil {
+			m.value.Reset()
+		}
 	}
 	
 	m.inputs[INPUT_DEC].SetValue(fmt.Sprintf("%d", m.value.Dec))
 	m.inputs[INPUT_HEX].SetValue(m.value.Hex)
 	m.inputs[INPUT_BIN].SetValue(m.value.Bin)
 	m.inputs[INPUT_OCT].SetValue(m.value.Oct)
+	m.inputs[INPUT_CHAR].SetValue(utils.PrintableForm(m.value.Char))
 
 	return tea.Batch(cmds...)
 }

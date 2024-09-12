@@ -3,6 +3,7 @@ package main
 import (
 	"baseconv/internal/converter"
 	"baseconv/internal/logging"
+	"baseconv/internal/utils"
 	"flag"
 	"fmt"
 	"strconv"
@@ -107,7 +108,7 @@ func main() {
 	case CONVERSION_BIN:
 		fmt.Println(v.Bin)
 	case CONVERSION_CHAR:
-		fmt.Println(v.Char)
+		fmt.Println(utils.PrintableForm(v.Char))
 	case CONVERSION_ALL:
 		fmt.Println(v.ToString())
 	default:

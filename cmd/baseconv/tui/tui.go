@@ -29,13 +29,14 @@ const (
 	INPUT_HEX = 1
 	INPUT_BIN = 2
 	INPUT_OCT = 3
+	INPUT_CHAR = 4
 )
 
 func NewModel() model {
 	model := model {
 		help: help.New(),
 		keys: keys,
-		inputs: make([]textinput.Model, 4),
+		inputs: make([]textinput.Model, 5),
 	}
 
 	for i, _ := range model.inputs {
@@ -55,6 +56,9 @@ func NewModel() model {
 		case INPUT_OCT:
 			model.inputs[i].Validate = converter.IsOctal
 			model.inputs[i].Prompt = "Oct: "
+		case INPUT_CHAR:
+			model.inputs[i].Validate = converter.IsCharacter
+			model.inputs[i].Prompt = "Char: "
 		}
 	}
 	model.inputs[INPUT_DEC].Focus()
@@ -82,15 +86,19 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			m.help.ShowAll = !m.help.ShowAll
 			return m, nil
 		case key.Matches(msg, m.keys.Quit):
+			if m.inputs[INPUT_CHAR].Focused() {
+				break
+			}
+
 			return m, tea.Quit
 		case key.Matches(msg, m.keys.Up):
-			m.selected = eumod(m.selected - 2, 4)
+			m.selected = eumod(m.selected - 2, len(m.inputs))
 		case key.Matches(msg, m.keys.Down):
-			m.selected = eumod(m.selected + 2, 4)
+			m.selected = eumod(m.selected + 2, len(m.inputs))
 		case key.Matches(msg, m.keys.Left):
-			m.selected = eumod(m.selected - 1, 4)
+			m.selected = eumod(m.selected - 1, len(m.inputs))
 		case key.Matches(msg, m.keys.Right):
-			m.selected = eumod(m.selected + 1, 4)
+			m.selected = eumod(m.selected + 1, len(m.inputs))
 		}
 	}
 
@@ -107,6 +115,7 @@ func (m model) View() string {
 	inputs := lipgloss.JoinVertical(lipgloss.Center,
 		lipgloss.JoinHorizontal(lipgloss.Left, style.Render(m.inputs[INPUT_DEC].View()), style.Render(m.inputs[INPUT_HEX].View())),
 		lipgloss.JoinHorizontal(lipgloss.Left, style.Render(m.inputs[INPUT_BIN].View()), style.Render(m.inputs[INPUT_OCT].View())),
+		lipgloss.JoinHorizontal(lipgloss.Left, style.Render(m.inputs[INPUT_CHAR].View())),
 	)
 	b.WriteString(inputs + "\n\n")
 	b.WriteString(leftPadding(1)(m.help.View(m.keys)))

@@ -93,6 +93,9 @@ func DecToChar(dec int64) (string, error) {
 	if dec < 0 || dec > 127 {
 		return "", fmt.Errorf("Decimal value out of ASCII range: %d", dec)
 	}
+	if dec == 0 {
+		return "\\0", nil
+	}
 	return string(dec), nil
 }
 
