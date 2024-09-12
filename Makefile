@@ -1,6 +1,9 @@
 EXE = baseconv
 
-all: tui cli
+all: download_pkgs tui cli
+
+download_pkgs:
+	go mod download
 
 tui:
 	go build ./cmd/$(EXE)
@@ -20,4 +23,4 @@ uninstall: all
 	sudo rm ./$(EXE) /usr/bin/$(EXE)
 	sudo rm ./$(EXE)-cli /usr/bin/$(EXE)-cli
 
-.PHONY: all tui cli clean install uninstall
+.PHONY: all download_pkgs tui cli clean install uninstall
