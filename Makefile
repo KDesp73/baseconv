@@ -16,7 +16,7 @@ install: all
 	sudo mv ./$(EXE) /usr/bin/$(EXE)
 	sudo mv ./$(EXE)-cli /usr/bin/$(EXE)-cli
 
-uninstall: all
+uninstall:
 	sudo rm ./$(EXE) /usr/bin/$(EXE)
 	sudo rm ./$(EXE)-cli /usr/bin/$(EXE)-cli
 
