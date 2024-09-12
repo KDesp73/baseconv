@@ -13,10 +13,11 @@ const (
 	CONVERSION_OCT = "OCT"
 	CONVERSION_BIN = "BIN"
 	CONVERSION_DEC = "DEC"
+	CONVERSION_CHAR = "CHAR"
 	CONVERSION_ALL = "ALL"
 )
 
-func checkValidity(value string, dec, hex, oct, bin bool) {
+func checkValidity(value string, dec, hex, oct, bin, char bool) {
 	if dec && converter.IsDecimal(value) != nil {
 		logging.Panic("Value '%s' is not in decimal form", value)
 	}
@@ -29,6 +30,9 @@ func checkValidity(value string, dec, hex, oct, bin bool) {
 	if bin && converter.IsBinary(value) != nil {
 		logging.Panic("Value '%s' is not in binary form", value)
 	}
+	if char && converter.IsCharacter(value) != nil {
+		logging.Panic("Value '%s' is not a character", value)
+	}
 }
 
 func main() {
@@ -38,6 +42,7 @@ func main() {
 	var hex = false
 	var oct = false
 	var bin = false
+	var char = false
 
 	flag.StringVar(&value, "value", value, "The value to convert")
 	flag.StringVar(&conv, "conv", conv, "The conversion {DEC | HEX | OCT | BIN}") 
@@ -45,6 +50,7 @@ func main() {
 	flag.BoolVar(&bin, "bin", bin, "Set the base of the value to binary")
 	flag.BoolVar(&oct, "oct", oct, "Set the base of the value to octal")
 	flag.BoolVar(&hex, "hex", hex, "Set the base of the value to hexadecimal")
+	flag.BoolVar(&char, "char", char, "Set the type to character")
 	flag.Parse()
 
 	if value == "" {
@@ -55,7 +61,7 @@ func main() {
 		logging.Panic("No conversion specified. See `conv -h`")
 	}
 	
-	checkValidity(value, dec, hex, oct, bin)
+	checkValidity(value, dec, hex, oct, bin, char)
 
 	v := converter.Value{}
 
@@ -84,6 +90,11 @@ func main() {
 		if err != nil {
 			logging.Panic("%v", err)
 		}
+	} else if char {
+		err := v.UpdateChar(value)
+		if err != nil {
+			logging.Panic("%v", err)
+		}
 	}
 
 	switch conv {
@@ -95,6 +106,8 @@ func main() {
 		fmt.Println(v.Oct)
 	case CONVERSION_BIN:
 		fmt.Println(v.Bin)
+	case CONVERSION_CHAR:
+		fmt.Println(v.Char)
 	case CONVERSION_ALL:
 		fmt.Println(v.ToString())
 	default:

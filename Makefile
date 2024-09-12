@@ -1,14 +1,14 @@
 EXE = baseconv
 
-all: download_pkgs tui cli
+all: tui cli
 
 download_pkgs:
 	go mod download
 
-tui:
+tui: download_pkgs
 	go build ./cmd/$(EXE)
 
-cli:
+cli: download_pkgs
 	go build ./cmd/$(EXE)-cli
 
 clean:
